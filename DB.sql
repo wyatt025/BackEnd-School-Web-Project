@@ -9,6 +9,7 @@ create database webDevTestdb;
 open query tool for webDevTestDB
 */
 
+/* first table and user */
 create table test_users (
     id serial primary key,
     username varchar(20),
@@ -18,3 +19,7 @@ create table test_users (
 );
 
 insert into test_users (username, email, role, password) values ('John_User', 'John_User@example.com', 'user', 'John-pswrd');
+
+/* 2nd & 3rd user for testing  */
+insert into test_users (username, email, role, password) values ('John_Coder', 'J_C@code.com', 'user', 'pswrd');
+insert into test_users (username, email, role, password) values ('John_Programmer', 'John_Pro@pro.com', 'user', 'John0');
