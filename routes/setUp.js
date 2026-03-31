@@ -1,5 +1,5 @@
 const express = require('express');
-const { query } = require('../dbLogic/db');
+const { query } = require('../dbLogic/userDB');
 const setUpRouter = express.Router();
 
 setUpRouter.get("/", async (req, res) => {
@@ -12,5 +12,17 @@ setUpRouter.get("/", async (req, res) => {
         res.status(500).json({error: error});
     };
 });
+
+setUpRouter.get("/", async (req, res) => {
+    try {
+        const result = await query('select * from user_videos');
+        const rows = result? result.rows : [];
+        res.status(200).json(rows);
+    } catch (error) {
+        res.statusMessage = error;
+        res.status(500).json({error: error});
+    };
+});
+
 
 module.exports = {setUpRouter};
