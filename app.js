@@ -8,7 +8,7 @@ const {videosRouter} = require('./routes/videos');
 const app = express();
 app.use(cors());
 app.use('/', usersRouter);
-app.use('/', videosRouter);
+app.use('/videos', videosRouter);
 app.use(express.static(publicPath));
 
 const port = process.env.PORT;
