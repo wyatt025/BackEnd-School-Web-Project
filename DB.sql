@@ -59,10 +59,3 @@ CREATE TABLE comments (
     content TEXT,
     created_at TIMESTAMP DEFAULT NOW()
 );
-CREATE TABLE comments (
-    id SERIAL PRIMARY KEY,
-    video_id INTEGER,
-    user_name TEXT,
-    content TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
-);
