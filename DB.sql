@@ -47,7 +47,7 @@ values ('Cool Test Video 2', 'Hey! Look at this cool video I made!',
 
 insert into user_videos (video_title, description, video_file_path, thumbnail_file_path, userID)
 values ('Earth Orbit', 'Just a short video view of earth from orbit. Amazing.',
-'..\Server\videos\earth_orbit.mp4', '..\Server\videoIMG\vidTN_01.png', 1);
+'..\Server\videos\testVid_1.mp4', '..\Server\videoIMG\vidTN_01.png', 1);
 
 --creating tables for comments section
 SELECT * FROM public.test_users ORDER BY id ASC;
