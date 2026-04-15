@@ -14,7 +14,7 @@ create table test_users (
     id serial primary key,
     firstname varchar(20),
     lastname varchar(20),
-    dob data,
+    dob date,
     gender varchar(20),
     email varchar(30),
     password varchar(100),
