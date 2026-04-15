@@ -31,6 +31,7 @@ create table test_users (
 
 insert into test_users (firstname, lastname, dob, gender, email, password, role) values ('John', 'Doe', '1990-04-14', 'male', 'John_User@example.com', 'John-pswrd', 'user');
 insert into test_users (firstname, lastname, dob, gender, email, password, role) values ('Jane', 'Coder', '2000-05-20', 'female', 'J_C@code.com', 'pswrd', 'user');
+insert into test_users (firstname, lastname, dob, gender, email, password, role) values ('John', 'Programmer', '1000-01-15', 'male', 'John_Programmer@example.com', 'pswrd', 'user');
 
 /* create the video table  */
 create table user_videos (
