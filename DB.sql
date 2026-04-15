@@ -9,6 +9,14 @@ create database webDevTestdb;
 open query tool for webDevTestDB
 */
 
+/* Alter query for user table
+    ALTER TABLE test_users
+    DROP COLUMN username,
+    ADD COLUMN firstname VARCHAR(20),
+    ADD COLUMN lastname VARCHAR(20),
+    ADD COLUMN dob date,
+    ADD COLUMN gender VARCHAR(20),
+*/
 /* first table and user */
 create table test_users (
     id serial primary key,
