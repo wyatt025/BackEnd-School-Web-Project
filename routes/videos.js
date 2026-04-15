@@ -12,7 +12,7 @@ videosRouter.get("/", async (req, res) => {
                 uv.video_file_path,
                 uv.thumbnail_file_path,
                 uv.userID,
-                tu.username,
+                tu.lastname,
                 tu.email
             FROM user_videos uv
             JOIN test_users tu ON uv.userID = tu.id
