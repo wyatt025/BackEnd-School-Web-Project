@@ -12,17 +12,17 @@ open query tool for webDevTestDB
 /* first table and user */
 create table test_users (
     id serial primary key,
-    username varchar(20),
+    firstname varchar(20),
+    lastname varchar(20),
+    dob data,
+    gender varchar(20),
     email varchar(30),
+    password varchar(100),
     role varchar(10),
-    password varchar(100)
 );
 
-insert into test_users (username, email, role, password) values ('John_User', 'John_User@example.com', 'user', 'John-pswrd');
-
-/* 2nd & 3rd user for testing  */
-insert into test_users (username, email, role, password) values ('John_Coder', 'J_C@code.com', 'user', 'pswrd');
-insert into test_users (username, email, role, password) values ('John_Programmer', 'John_Pro@pro.com', 'user', 'John0');
+insert into test_users (firstname, lastname, dob, gender, email, password, role) values ('John', 'Doe', '1990-04-14', 'male', 'John_User@example.com', 'John-pswrd', 'user');
+insert into test_users (firstname, lastname, dob, gender, email, password, role) values ('Jane', 'Coder', '2000-05-20', 'female', 'J_C@code.com', 'pswrd', 'user');
 
 /* create the video table  */
 create table user_videos (
