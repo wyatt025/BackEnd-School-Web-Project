@@ -18,8 +18,8 @@ usersRouter.post("/login", async (req, res) => {
         const { email, password } = req.body;
 
         const result = await query(
-            `SELECT * FROM test_users WHERE email = $1`,
-            [email]
+            `SELECT * FROM test_users WHERE email = $1 and password = $2`,
+            [email, password]
         );
 
         const user = result?.rows?.[0];
