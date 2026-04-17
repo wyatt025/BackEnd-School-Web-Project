@@ -1,28 +1,34 @@
 /*
-db user name = postgres
-db password = root
-*/
-
-/*
 create database webDevTestdb;
-
 open query tool for webDevTestDB
 */
 
 /* first table and user */
 create table test_users (
     id serial primary key,
-    username varchar(20),
+    firstname varchar(20),
+    lastname varchar(20),
+    dob date,
+    gender varchar(20),
     email varchar(30),
-    role varchar(10),
-    password varchar(100)
+    password varchar(100),
+    username varchar(50),
+    role varchar(10)
 );
+insert into test_users (firstname, lastname, dob, gender, email, password, username, role) values ('John', 'Doe', '1990-04-14', 'male', 'John_User@example.com', 'John-pswrd', 'John_user', 'user');
+insert into test_users (firstname, lastname, dob, gender, email, password, username, role) values ('Jane', 'Coder', '2000-05-20', 'female', 'J_C@code.com', 'pswrd', 'Jo-der', 'user');
+insert into test_users (firstname, lastname, dob, gender, email, password, username, role) values ('John', 'Programmer', '1000-01-15', 'male', 'John_Programmer@example.com', 'pswrd',  'Pro_John','user');
 
-insert into test_users (username, email, role, password) values ('John_User', 'John_User@example.com', 'user', 'John-pswrd');
+/* Alter query for user table if you need to update it */
+    ALTER TABLE test_users
+    ADD COLUMN firstname VARCHAR(20),
+    ADD COLUMN lastname VARCHAR(20),
+    ADD COLUMN dob date,
+    ADD COLUMN gender VARCHAR(20)
+/* Second alter query for user table*/
+alter table test_users
+add column username varchar(50);
 
-/* 2nd & 3rd user for testing  */
-insert into test_users (username, email, role, password) values ('John_Coder', 'J_C@code.com', 'user', 'pswrd');
-insert into test_users (username, email, role, password) values ('John_Programmer', 'John_Pro@pro.com', 'user', 'John0');
 
 /* create the video table  */
 create table user_videos (
@@ -47,18 +53,11 @@ values ('Cool Test Video 2', 'Hey! Look at this cool video I made!',
 
 insert into user_videos (video_title, description, video_file_path, thumbnail_file_path, userID)
 values ('Earth Orbit', 'Just a short video view of earth from orbit. Amazing.',
-'..\Server\videos\earth_orbit.mp4', '..\Server\videoIMG\vidTN_01.png', 1);
+'..\Server\videos\testVid_1.mp4', '..\Server\videoIMG\vidTN_01.png', 1);
 
 --creating tables for comments section
 SELECT * FROM public.test_users ORDER BY id ASC;
 SELECT * FROM public.user_videos ORDER BY id ASC;
-CREATE TABLE comments (
-    id SERIAL PRIMARY KEY,
-    video_id INTEGER,
-    user_name TEXT,
-    content TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
-);
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
     video_id INTEGER,
