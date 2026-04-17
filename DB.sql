@@ -1,22 +1,8 @@
 /*
-db user name = postgres
-db password = root
-*/
-
-/*
 create database webDevTestdb;
-
 open query tool for webDevTestDB
 */
 
-/* Alter query for user table
-    ALTER TABLE test_users
-    DROP COLUMN username,
-    ADD COLUMN firstname VARCHAR(20),
-    ADD COLUMN lastname VARCHAR(20),
-    ADD COLUMN dob date,
-    ADD COLUMN gender VARCHAR(20)
-*/
 /* first table and user */
 create table test_users (
     id serial primary key,
@@ -26,12 +12,23 @@ create table test_users (
     gender varchar(20),
     email varchar(30),
     password varchar(100),
-    role varchar(10),
+    username varchar(50),
+    role varchar(10)
 );
+insert into test_users (firstname, lastname, dob, gender, email, password, username, role) values ('John', 'Doe', '1990-04-14', 'male', 'John_User@example.com', 'John-pswrd', 'John_user', 'user');
+insert into test_users (firstname, lastname, dob, gender, email, password, username, role) values ('Jane', 'Coder', '2000-05-20', 'female', 'J_C@code.com', 'pswrd', 'Jo-der', 'user');
+insert into test_users (firstname, lastname, dob, gender, email, password, username, role) values ('John', 'Programmer', '1000-01-15', 'male', 'John_Programmer@example.com', 'pswrd',  'Pro_John','user');
 
-insert into test_users (firstname, lastname, dob, gender, email, password, role) values ('John', 'Doe', '1990-04-14', 'male', 'John_User@example.com', 'John-pswrd', 'user');
-insert into test_users (firstname, lastname, dob, gender, email, password, role) values ('Jane', 'Coder', '2000-05-20', 'female', 'J_C@code.com', 'pswrd', 'user');
-insert into test_users (firstname, lastname, dob, gender, email, password, role) values ('John', 'Programmer', '1000-01-15', 'male', 'John_Programmer@example.com', 'pswrd', 'user');
+/* Alter query for user table if you need to update it */
+    ALTER TABLE test_users
+    ADD COLUMN firstname VARCHAR(20),
+    ADD COLUMN lastname VARCHAR(20),
+    ADD COLUMN dob date,
+    ADD COLUMN gender VARCHAR(20)
+/* Second alter query for user table*/
+alter table test_users
+add column username varchar(50);
+
 
 /* create the video table  */
 create table user_videos (
