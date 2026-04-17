@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db"); // adjust if needed
-
+const db = require("../dbLogic/userDB");
 // GET comments
 router.get("/:videoId", async (req, res) => {
     const { videoId } = req.params;

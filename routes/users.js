@@ -39,10 +39,30 @@ usersRouter.post("/login", async (req, res) => {
         res.status(200).json({
             message: "Login successful",
              user: {
+                id: user.id,          
                 email: user.email,
                 username: user.username
             }         
         });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+usersRouter.get("/profile/:id", async (req, res) => {
+    try {
+        const result = await query(
+            `SELECT username, email, gender, birthday FROM test_users WHERE id = $1`,
+            [req.params.id]
+        );
+
+        const user = result?.rows?.[0];
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(user);
 
     } catch (error) {
         res.status(500).json({ error: error.message });
