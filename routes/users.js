@@ -41,7 +41,9 @@ usersRouter.post("/login", async (req, res) => {
              user: {
                 id: user.id,          
                 email: user.email,
-                username: user.username
+                username: user.username,
+                gender: user.gender,
+                birthday: user.dob
             }         
         });
 
