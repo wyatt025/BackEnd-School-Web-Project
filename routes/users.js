@@ -53,14 +53,12 @@ usersRouter.post("/login", async (req, res) => {
 });
 usersRouter.get("/profile/:id", async (req, res) => {
     try {
-        console.log("Fetching user ID:", req.params.id);
+        const userId = parseInt(req.params.id);
 
         const result = await query(
-            `SELECT id, username, email, gender, dob FROM test_users WHERE id = $1`,
-            [parseInt(req.params.id)]
+            `SELECT username, email, gender, dob FROM test_users WHERE id = $1`,
+            [userId]
         );
-
-        console.log("DB RESULT:", result.rows);
 
         const user = result.rows[0];
 
@@ -69,15 +67,14 @@ usersRouter.get("/profile/:id", async (req, res) => {
         }
 
         res.json({
-            id: user.id,
-            username: user.username,
+            username: user.username || "No name",
             email: user.email,
             gender: user.gender || "Not set",
             birthday: user.dob || "Not set"
         });
 
     } catch (error) {
-        console.error("PROFILE ERROR:", error);
+        console.error("PROFILE ERROR:", error); // 👈 IMPORTANT
         res.status(500).json({ error: error.message });
     }
 });
@@ -85,7 +82,7 @@ usersRouter.post("/register", async (req, res) => {
     try {
         const { firstName, lastName, dob, gender, email, password } = req.body;
 
-        const role = "user"; // default role
+        const role = "user";
 
         await query(
             "INSERT INTO test_users (firstname, lastname, dob, gender, email, password, role) VALUES($1, $2, $3, $4, $5, $6, $7)",
