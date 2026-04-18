@@ -37,6 +37,8 @@ videosRouter.get("/:id", async (req, res) => {
                 uv.video_file_path,
                 uv.thumbnail_file_path,
                 uv.userID,
+                tu.firstname,
+                tu.lastname,
                 tu.username,
                 tu.email
             FROM user_videos uv

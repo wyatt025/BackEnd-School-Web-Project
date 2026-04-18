@@ -9,11 +9,12 @@ const {commentRouter} = require("./routes/comments");
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use('/', usersRouter);
-app.use('/videos', videosRouter);
-app.use("/comments", commentRouter);
 app.use('/videos', express.static(path.join(__dirname, 'videos')));
 app.use('/videoIMG', express.static(path.join(__dirname, 'videoIMG')));
+app.use('/', usersRouter);
+app.use('/api/videos', videosRouter);
+app.use("/api/comments", commentRouter);
+
 
 const port = process.env.PORT;
 
