@@ -1,62 +1,162 @@
+// const express = require('express');
+// const { query } = require('../dbLogic/userDB');
+// const usersRouter = express.Router();
+
+// usersRouter.get("/", async (req, res) => {
+//     try {
+//         const result = await query('select * from test_users');
+//         const rows = result? result.rows : [];
+//         res.status(200).json(rows);
+//     } catch (error) {
+//         res.statusMessage = error;
+//         res.status(500).json({error: error});
+//     };
+// });
+
+// usersRouter.post("/login", async (req, res) => {
+//     try {
+//         const { email, password } = req.body;
+
+//         const result = await query(
+//             `SELECT * FROM test_users WHERE email = $1 and password = $2`,
+//             [email, password]
+//         );
+
+//         const user = result?.rows?.[0];
+
+//         if (!user) {
+//             return res.status(401).json({
+//                 message: "User not found"
+//             });
+//         }
+
+//         if (user.password !== password) {
+//             return res.status(401).json({
+//                 message: "Wrong password"
+//             });
+//         }
+
+//         res.status(200).json({
+//             message: "Login successful",
+//              user: {
+//                 id: user.id,          
+//                 email: user.email,
+//                 username: user.username,
+//                 gender: user.gender,
+//                 birthday: user.dob
+//             }         
+//         });
+
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
+// usersRouter.get("/profile/:id", async (req, res) => {
+//     try {
+//         const userId = parseInt(req.params.id);
+
+//         const result = await query(
+//             `SELECT firstname,lastname, email, gender, dob FROM test_users WHERE id = $1`,
+//             [userId]
+//         );
+
+//         const user = result.rows[0];
+
+//         if (!user) {
+//             return res.status(404).json({ message: "User not found" });
+//         }
+
+//         res.json({
+//             username: user.username || "No name",
+//             email: user.email,
+//             gender: user.gender || "Not set",
+//             birthday: user.dob || "Not set"
+//         });
+
+//     } catch (error) {
+//         console.error("PROFILE ERROR:", error); 
+//         res.status(500).json({ error: error.message });
+//     }
+// });
+// usersRouter.post("/register", async (req, res) => {
+//     try {
+//         const { firstName, lastName, dob, gender, email, password } = req.body;
+
+//         const role = "user";
+
+//         await query(
+//             "INSERT INTO test_users (firstname, lastname, dob, gender, email, password, role) VALUES($1, $2, $3, $4, $5, $6, $7)",
+//             [firstName, lastName, dob, gender, email, password, role]
+//         );
+
+//         res.status(200).json({ message: "User created successful"});
+        
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+    
+// });
+
+// module.exports = {usersRouter};
+
+
+
+
 const express = require('express');
 const { query } = require('../dbLogic/userDB');
 const usersRouter = express.Router();
 
+// GET ALL USERS
 usersRouter.get("/", async (req, res) => {
     try {
         const result = await query('select * from test_users');
-        const rows = result? result.rows : [];
-        res.status(200).json(rows);
+        res.status(200).json(result.rows);
     } catch (error) {
-        res.statusMessage = error;
-        res.status(500).json({error: error});
-    };
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
 });
 
+// LOGIN
 usersRouter.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
 
         const result = await query(
-            `SELECT * FROM test_users WHERE email = $1 and password = $2`,
+            `SELECT * FROM test_users WHERE email = $1 AND password = $2`,
             [email, password]
         );
 
-        const user = result?.rows?.[0];
+        const user = result.rows[0];
 
         if (!user) {
-            return res.status(401).json({
-                message: "User not found"
-            });
-        }
-
-        if (user.password !== password) {
-            return res.status(401).json({
-                message: "Wrong password"
-            });
+            return res.status(401).json({ message: "User not found" });
         }
 
         res.status(200).json({
             message: "Login successful",
-             user: {
-                id: user.id,          
+            user: {
+                id: user.id,
                 email: user.email,
-                username: user.username,
+                username: `${user.firstname} ${user.lastname}`, 
                 gender: user.gender,
                 birthday: user.dob
-            }         
+            }
         });
 
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: error.message });
     }
 });
+
+// PROFILE
 usersRouter.get("/profile/:id", async (req, res) => {
     try {
         const userId = parseInt(req.params.id);
 
         const result = await query(
-            `SELECT username, email, gender, dob FROM test_users WHERE id = $1`,
+            `SELECT firstname, lastname, email, gender, dob FROM test_users WHERE id = $1`,
             [userId]
         );
 
@@ -67,17 +167,19 @@ usersRouter.get("/profile/:id", async (req, res) => {
         }
 
         res.json({
-            username: user.username || "No name",
+            username: `${user.firstname} ${user.lastname}`, // ✅ FIXED
             email: user.email,
             gender: user.gender || "Not set",
             birthday: user.dob || "Not set"
         });
 
     } catch (error) {
-        console.error("PROFILE ERROR:", error); // 👈 IMPORTANT
+        console.error("PROFILE ERROR:", error);
         res.status(500).json({ error: error.message });
     }
 });
+
+// REGISTER
 usersRouter.post("/register", async (req, res) => {
     try {
         const { firstName, lastName, dob, gender, email, password } = req.body;
@@ -85,16 +187,18 @@ usersRouter.post("/register", async (req, res) => {
         const role = "user";
 
         await query(
-            "INSERT INTO test_users (firstname, lastname, dob, gender, email, password, role) VALUES($1, $2, $3, $4, $5, $6, $7)",
+            `INSERT INTO test_users 
+            (firstname, lastname, dob, gender, email, password, role) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7)`,
             [firstName, lastName, dob, gender, email, password, role]
         );
 
-        res.status(200).json({ message: "User created successful"});
-        
+        res.status(200).json({ message: "User created successfully" });
+
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: error.message });
     }
-    
 });
 
-module.exports = {usersRouter};
+module.exports = { usersRouter };
