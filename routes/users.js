@@ -52,8 +52,8 @@ usersRouter.post("/login", async (req, res) => {
 usersRouter.get("/profile/:id", async (req, res) => {
     try {
         const result = await query(
-            `SELECT username, email, gender, birthday FROM test_users WHERE id = $1`,
-            [req.params.id]
+            `SELECT username, email, gender, dob AS birthday FROM test_users WHERE id = $1`,
+            [Number(req.params.id)]
         );
 
         const user = result?.rows?.[0];
@@ -64,11 +64,15 @@ usersRouter.get("/profile/:id", async (req, res) => {
 
         res.status(200).json(user);
 
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+    } 
+        catch (error) {
+    console.error("PROFILE ERROR FULL:", error);   // 👈 ADD THIS
+    console.error("MESSAGE:", error.message);
+    console.error("STACK:", error.stack);
+    res.status(500).json({ error: error.message });
+}
+    
 });
-
 usersRouter.post("/register", async (req, res) => {
     try {
         const { firstName, lastName, dob, gender, email, password } = req.body;
