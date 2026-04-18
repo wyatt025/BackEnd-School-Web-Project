@@ -1,6 +1,7 @@
 const express = require("express");
-const commentRouter = express.Router();
 const { query } = require('../dbLogic/userDB');
+
+const commentRouter = express.Router();
 
 // GET comments
 commentRouter.get("/:videoId", async (req, res) => {

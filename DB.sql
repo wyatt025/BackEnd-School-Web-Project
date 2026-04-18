@@ -65,3 +65,8 @@ CREATE TABLE comments (
     content TEXT,
     created_at TIMESTAMP DEFAULT NOW()
 );
+alter table comments
+add column user_name varchar(50),
+    CONSTRAINT fk_user_name
+    FOREIGN KEY (user_name)
+    REFERENCES test_users(username);
