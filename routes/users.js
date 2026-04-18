@@ -53,27 +53,33 @@ usersRouter.post("/login", async (req, res) => {
 });
 usersRouter.get("/profile/:id", async (req, res) => {
     try {
+        console.log("Fetching user ID:", req.params.id);
+
         const result = await query(
-            `SELECT username, email, gender, dob AS birthday FROM test_users WHERE id = $1`,
-            [Number(req.params.id)]
+            `SELECT id, username, email, gender, dob FROM test_users WHERE id = $1`,
+            [parseInt(req.params.id)]
         );
 
-        const user = result?.rows?.[0];
+        console.log("DB RESULT:", result.rows);
+
+        const user = result.rows[0];
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
-        res.status(200).json(user);
+        res.json({
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            gender: user.gender || "Not set",
+            birthday: user.dob || "Not set"
+        });
 
-    } 
-        catch (error) {
-    console.error("PROFILE ERROR FULL:", error);   // 👈 ADD THIS
-    console.error("MESSAGE:", error.message);
-    console.error("STACK:", error.stack);
-    res.status(500).json({ error: error.message });
-}
-    
+    } catch (error) {
+        console.error("PROFILE ERROR:", error);
+        res.status(500).json({ error: error.message });
+    }
 });
 usersRouter.post("/register", async (req, res) => {
     try {
