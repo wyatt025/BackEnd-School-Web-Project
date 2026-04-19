@@ -75,15 +75,15 @@ usersRouter.get("/profile/:id", async (req, res) => {
 
 usersRouter.post("/register", async (req, res) => {
     try {
-        const { firstName, lastName, dob, gender, email, password } = req.body;
+        const { firstName, lastName, dob, gender,userName ,email, password } = req.body;
 
         const role = "user";
 
         await query(
             `INSERT INTO test_users 
-            (firstname, lastname, dob, gender, email, password, role) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-            [firstName, lastName, dob, gender, email, password, role]
+            (firstname, lastname, dob, gender, username, email, password, role) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7,$8)`,
+            [firstName, lastName, dob, gender, userName, email, password, role]        
         );
 
         res.status(200).json({ message: "User created successfully" });
