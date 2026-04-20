@@ -17,6 +17,9 @@ commentRouter.get("/:videoId", async (req, res) => {
 
 // POST comment
 commentRouter.post("/", async (req, res) => {
+    if(request.user_name != username) {
+        return response.status(403).json("You dont have privilages");
+    }
     const { video_id, user_name, content } = req.body;
 
     await query(
