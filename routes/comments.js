@@ -25,11 +25,11 @@ commentRouter.post("/", async (req, res) => {
         const { video_id, user_name, content } = req.body;
         if(req.user_name === null) {
         return res.status(403).json({ message: "Please log in or sign up to add a comment" });
-    }
+        }
     await query(
         "INSERT INTO comments(video_id, user_name, content) VALUES($1, $2, $3)",
         [video_id, user_name, content]
-    );
+        );
     res.sendStatus(201);
     } catch (error) {
         console.error(error);
