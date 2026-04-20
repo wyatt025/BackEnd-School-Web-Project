@@ -32,9 +32,10 @@ usersRouter.post("/login", async (req, res) => {
             user: {
                 id: user.id,
                 email: user.email,
-                username: `${user.firstname} ${user.lastname}`, 
+                fullname: `${user.firstname} ${user.lastname}`, 
                 gender: user.gender,
-                birthday: user.dob
+                birthday: user.dob,
+                username: user.username
             }
         });
 
