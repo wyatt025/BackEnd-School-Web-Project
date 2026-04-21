@@ -22,7 +22,7 @@ commentRouter.get("/:videoId", async (req, res) => {
 // POST comment
 commentRouter.post("/", async (req, res) => {
     if (req.body.user_name === null) {
-        return res.status(403).json({ message: "Please log in or sign up to add a comment" });
+        return res.status(403).json({ alert: "Please log in or sign up to add a comment" });
     }
     try {
         const { video_id, user_name, content } = req.body;
