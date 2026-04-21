@@ -34,4 +34,33 @@ commentRouter.post("/", async (req, res) => {
     }
 });
 
+// Delete comment
+commentRouter.delete("/",async (req,res)=> {
+    try {
+        const {commentId} = req.body;
+        const result = await query(
+        "DELETE FROM comments WHERE id =$1",
+        [commentId]
+        );
+        res.sendStatus(201);
+    } catch (error){
+        res.status(500).json({error:error.message});
+    }
+});
+
+// Edit comments
+commentRouter.patch("/",async (req,res)=>{
+    try {
+        const{ commentId , newContent } = req.body;
+        const result = await query(
+            "UPDATE comments SET content =$1 WHERE id =$2",
+            [newContent,commentId]
+        );
+        res.sendStatus(201);
+    } catch (error) {
+         res.status(500).json({error:error.message});
+        
+    }
+})
+
 module.exports = {commentRouter};
