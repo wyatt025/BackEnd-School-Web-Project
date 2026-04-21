@@ -10,7 +10,6 @@ const openDB = () => {
         password: process.env.DB_PASSWORD,
         port: process.env.DB_PORT,
         ssl: process.env.SSL,
-        backendURL: process.env.BACKEND_URL
     });
     return pool;
 };
