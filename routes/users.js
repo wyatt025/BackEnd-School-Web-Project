@@ -1,7 +1,7 @@
 const express = require('express');
 const { query } = require('../dbLogic/userDB');
 const usersRouter = express.Router();
-// const user = require('../models/user_model');
+const user = require('../models/user_model');
 
 usersRouter.get("/", async (req, res) => {
     try {
@@ -90,6 +90,19 @@ usersRouter.post("/register", async (req, res) => {
 
         res.status(200).json({ message: "User created successfully" });
 
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+});
+usersRouter.put("/edit/:id", async (req, res) => {
+    try {
+        const userId = parseInt(req.params.id);
+        const { firstName, lastName, dob, gender, userName, email, password } = req.body;
+
+        await user.updateUser(userId, { firstName, lastName, dob, gender, userName, email, password });
+
+        res.status(200).json({ message: "User details updated successfully" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
