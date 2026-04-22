@@ -38,10 +38,7 @@ commentRouter.post("/", async (req, res) => {
 commentRouter.delete("/",async (req,res)=> {
     try {
         const {commentId} = req.body;
-        const result = await query(
-        "DELETE FROM comments WHERE id =$1",
-        [commentId]
-        );
+        const result = await comments.deleteComment(commentId);
         res.sendStatus(201);
     } catch (error){
         res.status(500).json({error:error.message});
@@ -52,10 +49,7 @@ commentRouter.delete("/",async (req,res)=> {
 commentRouter.patch("/",async (req,res)=>{
     try {
         const{ commentId , newContent } = req.body;
-        const result = await query(
-            "UPDATE comments SET content =$1 WHERE id =$2",
-            [newContent,commentId]
-        );
+        const result = await comments.editComment(commentId, newContent);
         res.sendStatus(201);
     } catch (error) {
          res.status(500).json({error:error.message});

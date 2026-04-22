@@ -13,6 +13,18 @@ const comments = {
             [video_id, user_name, content]
         );
     },
+    deleteComment(commentId){
+        return query(
+            "DELETE FROM comments WHERE id =$1",
+            [commentId]
+        );
+    },
+    editComment(commentId, newContent){
+        return query(
+            "UPDATE comments SET content =$1 WHERE id =$2",
+            [newContent,commentId]
+        );
+    },
 
 }
 module.exports = comments;
