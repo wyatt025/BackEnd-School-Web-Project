@@ -1,5 +1,5 @@
 const express = require("express");
-const { query } = require('../dbLogic/userDB');
+//const { query } = require('../dbLogic/userDB');
 const commentRouter = express.Router();
 const comments = require('../models/comment_model');
 
@@ -8,10 +8,7 @@ commentRouter.get("/:videoId", async (req, res) => {
     try {
         const { videoId } = req.params;
 
-        const result = await query(
-            "SELECT * FROM comments WHERE video_id=$1 ORDER BY created_at DESC",
-            [videoId]
-        );
+        const result = await comments.getComments(videoId);
         res.json(result.rows);
     } catch (error) {
         console.error(error);

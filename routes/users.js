@@ -1,6 +1,7 @@
 const express = require('express');
 const { query } = require('../dbLogic/userDB');
 const usersRouter = express.Router();
+// const user = require('../models/user_model');
 
 usersRouter.get("/", async (req, res) => {
     try {
