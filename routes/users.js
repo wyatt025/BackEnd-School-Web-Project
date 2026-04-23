@@ -100,7 +100,7 @@ usersRouter.put("/edit/:id", async (req, res) => {
         const userId = parseInt(req.params.id);
         const { firstName, lastName, dob, gender, userName, email, password } = req.body;
 
-        await user.updateUser(userId, { firstName, lastName, dob, gender, userName, email, password });
+        await user.editDetails(userId, { firstName, lastName, dob, gender, userName, email, password });
 
         res.status(200).json({ message: "User details updated successfully" });
     } catch (error) {
