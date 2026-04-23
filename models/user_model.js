@@ -23,7 +23,7 @@ const user = {
         const sql = `UPDATE test_users SET ${setClause} WHERE id = $${values.length}`;
 
         // 5. Execute the query using your pg pool/client
-        return await query(sql, values);
+        return query(sql, values);
     }
 }
 module.exports = user;
