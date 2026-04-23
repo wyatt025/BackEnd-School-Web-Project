@@ -98,13 +98,27 @@ usersRouter.post("/register", async (req, res) => {
 usersRouter.put("/edit/:id", async (req, res) => {
     try {
         const userId = parseInt(req.params.id);
-        const { firstName, lastName, dob, gender, userName, email, password } = req.body;
+        
+        // Pick only the fields your table actually has
+        const updateData = {};
+        const allowedFields = ['firstName', 'lastName', 'dob', 'gender', 'userName', 'email', 'password'];
+        
+        allowedFields.forEach(field => {
+            // Only add if it's not empty and not undefined
+            if (req.body[field] !== undefined && req.body[field] !== "") {
+                updateData[field] = req.body[field];
+            }
+        });
 
-        await user.editDetails(userId, { firstName, lastName, dob, gender, userName, email, password });
+        if (Object.keys(updateData).length === 0) {
+            return res.status(400).json({ error: "No changes provided" });
+        }
+
+        await user.editDetails(userId, updateData);
 
         res.status(200).json({ message: "User details updated successfully" });
     } catch (error) {
-        console.error(error);
+        console.error("Backend Error:", error);
         res.status(500).json({ error: error.message });
     }
 });
