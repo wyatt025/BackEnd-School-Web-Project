@@ -70,3 +70,12 @@ add column user_name varchar(50),
     CONSTRAINT fk_user_name
     FOREIGN KEY (user_name)
     REFERENCES test_users(username);
+
+CREATE TABLE comment_reactions(
+ id serial PRIMARY KEY,
+ comment_id INT NOT NULL,
+ user_name VARCHAR(50) NOT NULL,
+ reaction INT NOT NULL,
+
+ FOREIGN KEY (comment_id) REFERENCES comments(id)
+);
