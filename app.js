@@ -17,7 +17,7 @@ app.use('/', usersRouter);
 app.use('/api/videos', videosRouter);
 app.use("/api/comments", commentRouter);
 app.use("/api/reactions", reactionRouter);
-app.use("/api/uploads", uploadsRouter);
+app.use("/api/upload", uploadsRouter);
 
 const port = process.env.PORT;
 
