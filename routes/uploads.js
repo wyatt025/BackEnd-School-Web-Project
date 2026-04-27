@@ -68,7 +68,13 @@ uploadsRouter.post('/', upload.fields([{ name: 'video', maxCount: 1 }, { name: '
         const thumbnailPath = thumbnailFile.path;
 
         await query(
-            `INSERT INTO user_videos (title, description, video_path, thumbnail_path, user_id) VALUES ($1, $2, $3, $4, $5)`,
+            `INSERT INTO user_videos (
+            video_title, 
+            description, 
+            video_file_path, 
+            thumbnail_file_path, 
+            userID
+            ) VALUES ($1, $2, $3, $4, $5)`,
             [title, description, videoPath, thumbnailPath, userId]
         );
 
