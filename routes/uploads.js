@@ -46,7 +46,7 @@ const upload = multer({
     }
 });
 
-uploadsRouter.post('/upload', upload.fields([{ name: 'video', maxCount: 1 }, { name: 'thumbnail', maxCount: 1 }]), async (req, res) => {
+uploadsRouter.post('/', upload.fields([{ name: 'video', maxCount: 1 }, { name: 'thumbnail', maxCount: 1 }]), async (req, res) => {
     try {
         // Defensive check: ensure files were actually uploaded
         if (!req.files || !req.files['video'] || !req.files['thumbnail']) {
