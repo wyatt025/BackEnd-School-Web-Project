@@ -7,6 +7,7 @@ const {videosRouter} = require('./routes/videos');
 const {commentRouter} = require("./routes/comments");
 const {reactionRouter} = require("./routes/reaction");
 const {uploadsRouter} = require("./routes/uploads");
+const {searchRouter} = require("./routes/search");
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use('/api/videos', videosRouter);
 app.use("/api/comments", commentRouter);
 app.use("/api/reactions", reactionRouter);
 app.use("/api/upload", uploadsRouter);
+app.use("/api/search", searchRouter);
 
 const port = process.env.PORT;
 
